@@ -1,0 +1,1 @@
+entry,tidspunkt,temperatur,trykk,fuktighet,pm25,pm10
