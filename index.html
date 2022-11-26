@@ -1,146 +1,81 @@
-// data source
+<!DOCTYPE html>
+<html lang="en">
 
-const url = "https://raw.githubusercontent.com/skmake/skmake.github.io/main/data.csv";
-
-// getData function
-
-async function getData() {
-
-    // Part 1: Get CSV
-
-    // fetch data
-    const response = await fetch(url);
-    // process data
-    const rawData = await response.text();
-    // publish data
-    document.getElementById("csv").innerHTML = rawData;
-
-    // developer info
-    console.log(rawData);
-    console.log("rawData type: " + typeof rawData);
-
-
-
-    // Part 2: CSV to JSON
-    // credit: Stack Overflow User "Paath" on 2016-05-07
-
-    // initialize variables
-    let arrayOne = rawData.split("\r\n");
-    let header = arrayOne[0].split(",");
-    let noOfRow = arrayOne.length;
-    let noOfCol = header.length;
-    let jsonData = [];
-    let i = 0;
-    let j = 0;
-
-    // for loop (rows)
-    for (i = 1; i < noOfRow - 1; i++) {
-        let obj = {};
-        let myNewLine = arrayOne[i].split(",");
-        // nested for loop (columns)
-        for (j = 0; j < noOfCol; j++) {
-            obj[header[j]] = myNewLine[j];
-        };
-        // generate JSON
-        jsonData.push(obj);
-    };
-
-    // publish data
-    document.getElementById("json").innerHTML = jsonData;
-
-    // developer info
-    console.log(jsonData);
-    console.table(jsonData);
-    console.log("jsonData type: " + typeof jsonData);
-
-    // Part 3: JSON to HTML Table
-    // credit: Stack Overflow User "ray hatfield" on 2015-05-26
-
-    // initialize variables
-    let children = jsonData;
-    let table = document.createElement("table");
-
-    // function to generate table header row
-    function addHeaders(table, keys) {
-        let row = table.insertRow();
-        for (i = 0; i < keys.length; i++) {
-            let cell = row.insertCell();
-            cell.appendChild(document.createTextNode(keys[i]));
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Analysis Reference</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
         }
-    }
 
-    // generate table
-    for (i = 0; i < children.length; i++) {
-        let child = children[i];
-        // generate header row
-        if (i === 0) {
-            addHeaders(table, Object.keys(child));
+        /* table rules */
+        table {
+            border-collapse: collapse;
         }
-        // generate data rows
-        let row = table.insertRow();
-        Object.keys(child).forEach(function (k) {
-            let cell = row.insertCell();
-            cell.appendChild(document.createTextNode(child[k]));
-        })
-    }
 
-    // publish table
-    document.getElementById("container").appendChild(table);
-
-    // developer info
-    console.log("HTML table type: " + typeof table);
-
-
-
-    // Part 4: Plot Data
-
-    // generate array for x-axis (years)
-
-    let years = [];
-
-    for (i in jsonData) {
-        let item = jsonData[i];
-        years.push(item.Year);
-    }
-
-    // generate array for y-axis (world population)
-
-    let population = [];
-
-    for (i in jsonData) {
-        let item = jsonData[i];
-        population.push(item.World);
-    }
-
-    // newPlot() arguments
-
-    let p = document.getElementById("myPlot");
-
-    let plotData = [
-        {
-            x: years,
-            y: population
+        tr:nth-child(odd) {
+            background: lightgray;
         }
-    ];
 
-    let layout = {
-        title: "World Population by Year",
-        xaxis: { title: "Year" },
-        yaxis: { title: "Population (billions)" }
-    };
+        td {
+            padding: 4px 16px;
+        }
+    </style>
 
-    // generate plot
-    Plotly.newPlot(p, plotData, layout);
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.0.0.min.js"></script>
+</head>
 
-    // developer info
-    console.log(years);
-    console.log(population);
-    console.log(Plotly.newPlot(p, plotData, layout));
-    console.log("plot type: " + typeof Plotly.newPlot(p, plotData, layout));
+<body>
+    <h1>JavaScript for Analysis Reference</h1>
+
+    <!-- Part 1: Fetch CSV Data -->
+
+    <h2>Part 1: How to fetch CSV file and convert to string</h2>
+
+    <h3>Data Source: Wikipedia</h3>
+
+    <p>Raw Data (string):</p>
+
+    <p id="csv"></p>
 
 
-}
 
-// call function
+    <!-- Part 2: Convert CSV into JSON -->
 
-getData();
+    <h2>Part 2: How to convert CSV string into JSON object</h2>
+
+    <p>JSON (object):</p>
+
+    <p id="json"></p>
+
+
+
+    <!-- Part 3: Display JSON as HTML Table -->
+
+    <h2>Part 3: How to convert JSON object into HTML table object</h2>
+
+    <p>HTML Table (object):</p>
+
+    <div id="container"></div>
+
+
+
+    <!-- Part 4: Plot Data -->
+
+    <h2>Part 4: How to plot data using PlotlyJS</h2>
+
+    <p>Plot (object):</p>
+
+    <div id="myPlot" style="width: 650px; height: 500px;"></div>
+
+
+
+    <!-- js -->
+    <script src="main.js"></script>
+</body>
+
+</html>
