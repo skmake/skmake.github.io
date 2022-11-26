@@ -92,51 +92,7 @@ async function getData() {
 
 
 
-    // Part 4: Plot Data
-
-    // generate array for x-axis (years)
-
-    let years = [];
-
-    for (i in jsonData) {
-        let item = jsonData[i];
-        years.push(item.Year);
-    }
-
-    // generate array for y-axis (world population)
-
-    let population = [];
-
-    for (i in jsonData) {
-        let item = jsonData[i];
-        population.push(item.World);
-    }
-
-    // newPlot() arguments
-
-    let p = document.getElementById("myPlot");
-
-    let plotData = [
-        {
-            x: years,
-            y: population
-        }
-    ];
-
-    let layout = {
-        title: "World Population by Year",
-        xaxis: { title: "Year" },
-        yaxis: { title: "Population (billions)" }
-    };
-
-    // generate plot
-    Plotly.newPlot(p, plotData, layout);
-
-    // developer info
-    console.log(years);
-    console.log(population);
-    console.log(Plotly.newPlot(p, plotData, layout));
-    console.log("plot type: " + typeof Plotly.newPlot(p, plotData, layout));
+    
 
 
 }
