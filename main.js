@@ -13,7 +13,7 @@ async function getData() {
     // process data
     const rawData = await response.text();
     // publish data
-    document.getElementById("csv").innerHTML = rawData;
+   
 
     // developer info
     console.log(rawData);
@@ -46,7 +46,7 @@ async function getData() {
     };
 
     // publish data
-    document.getElementById("json").innerHTML = jsonData;
+
 
     // developer info
     console.log(jsonData);
