@@ -1,6 +1,6 @@
 // data source
 
-const url = "https://raw.githubusercontent.com/skmake/skmake.github.io/main/verstasjon2.csv";
+const url = "https://raw.githubusercontent.com/skmake/skmake.github.io/main/verstasjon2%20(2).csv";
 
 // getData function
 
